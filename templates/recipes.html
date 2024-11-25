@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="header-logo">
+            <div class="header-logo__img"><a href="{% url 'home' %}"><img src="{% static 'img/svg/logo-header.svg' %}"/></a></div>
+          </div>
+          <div class="header-nav__content">
+            <div class="navigation">
+              <ul class="nav">
+                <div class="nav-group">
+                  <li class="nav-link active"><a href="{% url 'about_company' %}">О нас</a></li>
+                  <li class="nav-link"><a href="{% url 'category_list' %}">Продукция</a></li>
+                  <li class="nav-link"><a href="{% url 'publication_list' %}">Публикации</a></li>
+                </div>
+                <div class="nav-group">
+                  <li class="nav-link"><a href="{% url 'recipes_list' %}">Рецепты</a></li>
+
+                </div>
+              </ul>
+            </div>
+            <div class="header-language">
+              <div class="network-link"><a href="{{ social_media.instagram }}"><img src="{% static 'img/svg/instagram-icon.svg' %}"/></a><a href="{{ social_media.facebook }}"><img src="{% static 'img/svg/facebook-icon.svg' %}"/></a><a href="{{ social_media.phone_number }}"><img src="{% static 'img/svg/whatsapp-icon.svg' %}"/></a></div>
+              <div class="language-link"><a href="#"><img src="{% static 'img/svg/kg-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/ru-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/en-icon.svg' %}"/></a><a href="#"><img src="{% static 'img/svg/kz-icon.svg' %}"/></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="product recipes">
+      <div class="container">
+        <div class="product__content">
+          <div class="product-left">
+            <h1>рецепты</h1>
+          </div>
+          <div class="product-right">
+            <div class="about-company-all">
+              <div class="crumb"><a href="{% url 'home' %}">Главная</a><a href="{% url 'category_list' %}">Продукция</a><span> Колбасы</span></div>
+              <div class="about-company__content">
+                {% for item in recipes %}
+                <div class="about-company">
+                  <h2 class="h2">{{ item.title }}</h2>
+                  <p>{{ item.description }}</p><img src="{{ item.image.url }}"/><a href="{% url 'recipe_detail' item.pk %}"></a>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="publication__pagination">
+               <div class="publication__pagination">
+                <div class="pagination__left"><a class="arrow-left disabled" href="#"></a></div>
+                  {% for p in page_obj.paginator.page_range %}
+                <div class="publication__pagination-num"><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">...</a><a href="#">85</a></div>
+                   {% endfor %}
+                <div class="pagination__right"><a class="arrow-right" href="#"></a></div>
+              </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock content %}
+
+    <div class="publication__pagination">
+      <div class="pagination__left"><a class="arrow-left disabled" href="#"></a></div>
+      <div class="publication__pagination-num"><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">...</a><a href="#">85</a></div>
+      <div class="pagination__right"><a class="arrow-right" href="#"></a></div>
+    </div>
